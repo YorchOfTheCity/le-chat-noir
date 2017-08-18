@@ -1,0 +1,104 @@
+@import "./sass/lavishScheme";
+@import "~bootstrap/scss/bootstrap";
+@import "./sass/responsiveVars.scss";
+@import "./sass/noise.scss";
+
+@font-face {
+  font-family: 'Annie Use Your Telescope';
+  src: url('/assets/fonts/Annie Use Your Telescope.woff2');
+} 
+@font-face {
+  font-family: 'Raleway';
+  src: url('/assets/fonts/Raleway.woff2');
+}
+
+$title-font: 'Annie Use Your Telescope', cursive;
+$text-font: 'Raleway', sans-serif;
+$body-bg: #424441;
+
+body{
+  height: 100%;
+  font-family: $text-font;
+}
+
+h1, h2, h3 {
+  font-family: $title-font;
+}
+
+h1 {
+  text-transform: uppercase;
+  color: $gray;
+  line-height: 0.9em;
+}
+
+h1::first-letter {
+  font-size: 2.3em;
+  color: $gray-base;
+  letter-spacing: -.1em;
+}
+
+.main-title {
+  font-family: $title-font;
+  text-transform: uppercase;
+  fill: $gray;
+  line-height: 0.9em;
+  font-size: 3em;
+
+  .first-letter {
+    //::first-letter won't work with SVG, we'll add a class and more tspans for the title.
+    font-size: 2.3em;
+    fill: $gray-base;
+    letter-spacing: -.1em;
+  }
+}
+
+.splash {
+  background-image: url("/assets/images/le_chat_noir_poster.jpg");
+  background-position: left bottom;
+  background-size: cover;
+  height: 100vh;
+}
+
+.text-middle {
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.textured-bg {
+  background: url("/assets/images/orange_pattern_low.jpg") repeat;
+}
+
+.semitransparent {
+  background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6));
+}
+
+// .semitransparent-strong {
+//   background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8));
+// }
+
+.centered {
+  //Needs a relative parent container
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.round-corners {
+  border: solid;
+  border-radius: 5%;
+  border-color: rgba(0,0,0,0);
+}
+
+.framed {
+  @extend .centered;
+  @extend .round-corners;
+  height: 90%;
+  width: 90%;
+}
+
+#title-div {
+  width: 50%;
+  overflow: hidden;
+}
