@@ -1,0 +1,20 @@
+@import "~bootstrap/scss/bootstrap";
+
+#title-div {
+  width: 50%;
+  overflow: hidden;
+}
+
+@include media-breakpoint-down(sm) { 
+  #loginContainer {
+    background: none;
+  }
+
+  #loginFrame {
+    //display: block;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300;
+  }
+}
