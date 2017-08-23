@@ -2,6 +2,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./sass/responsiveVars.scss";
 @import "./sass/noise.scss";
+@import "./sass/initSpinner.scss";
 
 @font-face {
   font-family: 'Annie Use Your Telescope';
@@ -77,6 +78,12 @@ h1 {
   @extend .round-corners;
   height: 90%;
   width: 90%;
+  transition: all 2s ease-out;
+}
+
+.framedAbove {
+  @extend .framed;
+  top: -100%;
 }
 
 .error {
