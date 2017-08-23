@@ -55,7 +55,7 @@ h1 {
 }
 
 .semitransparent {
-  background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6));
+  background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8));
 }
 
 .centered {
@@ -77,4 +77,14 @@ h1 {
   @extend .round-corners;
   height: 90%;
   width: 90%;
+}
+
+.error {
+  color: $brand-danger;
+  font-size: .5em;
+  font-weight: bolder;
+}
+
+.invisible {
+  visibility: hidden;
 }

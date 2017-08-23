@@ -1,8 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
+@import "../sass/lavishScheme.scss";
 
 #title-div {
   width: 50%;
   overflow: hidden;
+}
+
+#loginFrame a {
+  width: 100%;
+  text-align: center;
+  border-top: solid $gray-darker 1px;
 }
 
 @include media-breakpoint-down(sm) { 
@@ -17,4 +24,10 @@
     right: 0;
     width: 300;
   }
+
+  form {
+    font-size: 1.5em;
+  }
 }
+
+
