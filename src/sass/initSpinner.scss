@@ -39,7 +39,7 @@
     top: 50%; 
     right: 0;
     margin-top: -.1em; /* Height/2 */
-    transform-origin: -250% 50%;
+    transform-origin: -150% 50%;
     animation: 
         rota 1.86s linear infinite,
         opa 4.29s ease-in-out infinite alternate;
@@ -72,15 +72,15 @@
 }
 
 @keyframes opa {
-  12.0% { opacity: 0.80; }
-  19.5% { opacity: 0.88; }
-  37.2% { opacity: 0.64; }
-  40.5% { opacity: 0.52; }
-  52.7% { opacity: 0.69; }
-  60.2% { opacity: 0.60; }
-  66.6% { opacity: 0.52; }
-  70.0% { opacity: 0.63; }
-  79.9% { opacity: 0.60; }
-  84.2% { opacity: 0.75; }
-  91.0% { opacity: 0.87; }
+  12.0% { opacity: 0.90; }
+  19.5% { opacity: 0.98; }
+  37.2% { opacity: 0.74; }
+  40.5% { opacity: 0.62; }
+  52.7% { opacity: 0.79; }
+  60.2% { opacity: 0.70; }
+  66.6% { opacity: 0.62; }
+  70.0% { opacity: 0.73; }
+  79.9% { opacity: 0.70; }
+  84.2% { opacity: 0.85; }
+  91.0% { opacity: 0.97; }
 }

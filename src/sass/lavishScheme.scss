@@ -21,6 +21,17 @@ $brand-info:            #73B7CA !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #C21D19 !default;
 
+$theme-colors: (
+  primary: $brand-primary,
+  secondary: $gray,
+  success: $brand-success,
+  info: $brand-info,
+  warning: $brand-warning,
+  danger: $brand-danger,
+  light: $gray-lighter,
+  dark: $gray-dark
+);
+
 
 //== Scaffolding
 //

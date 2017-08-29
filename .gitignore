@@ -42,4 +42,4 @@ testem.log
 .DS_Store
 Thumbs.db
 debug.log
-npm-debug.log.3007061770
+npm-debug.log.*

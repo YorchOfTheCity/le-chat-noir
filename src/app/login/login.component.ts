@@ -3,6 +3,7 @@ import 'jquery';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   state = 'inactive';
   centeringAnimation = 'framedAbove';
 
-  constructor() {
+  constructor(private router: Router) {
     this.formModel = new FormGroup({
       'username': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required])
@@ -41,17 +42,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     this.submitted = true;
-    console.dir(this.formModel.value);
+    // TODO: If the form is valid, check for username/pwd and fwd to main chat screen
+    this.router.navigate(['/main']);
   }
 
   ngOnInit(): void {
-    $('.spinner').remove();
     const useless: any = new Vivus('title-svg', { duration: 200 }, this.fillSVG);
   }
 
   ngAfterViewInit(): void {
     this.state = 'active';
-    this.centeringAnimation = 'framed';
+    this.centeringAnimation = 'framedAnim';
   }
 
   fillSVG(): void {

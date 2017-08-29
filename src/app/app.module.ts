@@ -7,17 +7,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { DbService } from './services/db.service';
+import { MockDbService } from './services/mock-db.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
-const routes: Routes = [
-  { path: '',          component: LoginComponent },
-  { path: 'signUp',    component: SignUpComponent }
+export const routes: Routes = [
+  { path: '',         component: LoginComponent },
+  { path: 'signUp',   component: SignUpComponent },
+  { path: 'main',     component: DashboardComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule
   ],
-  providers:  [],
+  providers:  [
+                { provide: DbService, useClass: MockDbService }, // TODO: Change to the real service when ready
+              ],
   bootstrap:  [AppComponent]
 })
 export class AppModule { }

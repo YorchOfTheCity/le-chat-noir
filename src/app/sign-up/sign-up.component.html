@@ -1,0 +1,43 @@
+<div id="signUp" class="semitransparent round-corners m-md-4 m-2">
+  <div class="px-md-5 px-sm-3 px-2">
+    <form [formGroup]="formModel" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+      <h2>Sign up for the chat noir</h2>
+
+      <label for="username" class="mb-0">Username:</label>
+      <span [hidden]="!submitted || !formModel.hasError('required', 'username')" class="error">* Please enter your screen name</span>
+      <span [hidden]="formModel.get('username').untouched || !formModel.hasError('minlength', 'username')" class="error">* Name must be {{usernameMinLength}} or more characters</span>
+      <span [hidden]="!formModel.get('username').errors || !formModel.get('username').errors.userTaken" class="error"> * Name is already taken, please pick another </span>
+      <span class="mb-3">
+        <div [class.formPending]="formModel.get('username').pending" ></div>
+        <div [hidden]="!formModel.get('username').valid" class="fa fa-check input-ok" ></div>
+        <input type="text" formControlName="username">
+      </span>
+
+      <label for="email" class="mb-0">E-mail:</label>
+      <span [hidden]="!submitted || !formModel.hasError('required', 'email')" class="error">* Please enter your email address</span>
+      <span [hidden]="formModel.get('email').untouched || !formModel.hasError('email', 'email')" class="error">* Please enter a valid email address</span>
+      <span [hidden]="!formModel.get('email').errors || !formModel.get('email').errors.emailTaken" class="error"> * This email is already registered </span>
+      <span class="mb-3">
+        <div [class.formPending]="formModel.get('email').status === 'PENDING'"></div>
+        <div [hidden]="!formModel.get('email').valid" class="fa fa-check input-ok" ></div>
+        <input type="text" formControlName="email">
+      </span>
+
+      <div formGroupName="passwordsGroup" class="d-flex flex-column">
+
+        <label for="password" class="mb-0">Password:</label>
+        <span [hidden]="!submitted || !formModel.hasError('required', ['passwordsGroup', 'password'])" class="error">* Please enter your password</span>
+        <span [hidden]="formModel.get(['passwordsGroup','password']).untouched || !formModel.hasError('minlength', ['passwordsGroup','password'])" class="error">* Password must be {{passwordMinLength}} or more characters</span>
+        <input type="password" formControlName="password" class="mb-3">
+
+        <label for="pconfirm" class="mb-0">Confirm Password:</label>
+
+        <span [hidden]="!submitted || !formModel.hasError('required', ['passwordsGroup','pconfirm'])" class="error">* Please enter the above password again</span>
+        <span [hidden]="formModel.get('passwordsGroup').get('pconfirm').untouched || !formModel.hasError('passwordMatch', 'passwordsGroup')"
+          class="error">* Passwords don't match</span>
+        <input type="password" formControlName="pconfirm" class="mb-3">
+      </div>
+      <button type="submit" class="align-self-end btn btn-primary">Sign up</button>
+    </form>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "../../sass/lavishScheme.scss";
+@import "../../styles.scss";
 
 #title-div {
   width: 50%;
@@ -10,6 +11,16 @@
   width: 100%;
   text-align: center;
   border-top: solid $gray-darker 1px;
+}
+
+.framedAnim {
+  @extend .framed;
+  transition: all 2s ease-out;
+}
+
+.framedAbove {
+  @extend .framed;
+  top: -100%;
 }
 
 @include media-breakpoint-down(sm) { 

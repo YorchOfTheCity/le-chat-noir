@@ -1,9 +1,13 @@
 import { TestBed, async } from '@angular/core/testing';
-import { LoginComponent } from './login.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, fakeAsync } from '@angular/core/testing';
 
+import { routes } from '../app.module';
+import { SignUpComponent } from '../sign-up/sign-up.component';
+import { LoginComponent } from './login.component';
+import { CommonTestModule } from '../testing/common.test.module';
 
 let comp: LoginComponent;
 let fixture: ComponentFixture<LoginComponent>;
@@ -13,12 +17,8 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        ReactiveFormsModule
-      ],
-      declarations: [
-        LoginComponent
-      ],
+        CommonTestModule
+      ]
     }).compileComponents().then(
       () => {
         fixture = TestBed.createComponent(LoginComponent);
