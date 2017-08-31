@@ -7,8 +7,8 @@ import { LoginComponent } from '../login/login.component';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
-import { DbService } from '../services/db.service';
-import { MockDbService } from '../services/mock-db.service';
+import { BackendService } from '../services/backend.service';
+import { MockBackendService } from '../services/mockBackend.service';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { MockDbService } from '../services/mock-db.service';
     DashboardComponent,
   ],
   providers:  [
-    { provide: DbService, useClass: MockDbService },
+    { provide: BackendService, useClass: MockBackendService },
   ]
 })
 export class CommonTestModule { }

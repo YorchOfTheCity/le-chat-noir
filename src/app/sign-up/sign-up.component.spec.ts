@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpComponent } from './sign-up.component';
-import { MockDbService } from '../services/mock-db.service';
+import { MockBackendService } from '../services/mockBackend.service';
 import { CommonTestModule } from '../testing/common.test.module';
 
 describe('SignUpComponent', () => {

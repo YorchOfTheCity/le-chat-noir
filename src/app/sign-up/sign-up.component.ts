@@ -3,9 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, Valid
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { DbService } from '../services/db.service';
+import { BackendService } from '../services/backend.service';
 
-let dbService: DbService;
+let dbService: BackendService;
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +19,7 @@ export class SignUpComponent {
   formModel: FormGroup;
   submitted = false;
 
-  constructor(fb: FormBuilder, private databaseService: DbService) {
+  constructor(fb: FormBuilder, private databaseService: BackendService) {
     dbService = databaseService;
     this.formModel = fb.group({
       'username': ['', [Validators.required, Validators.minLength(this.usernameMinLength)], this.userNotInDB],

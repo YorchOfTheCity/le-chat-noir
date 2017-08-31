@@ -7,8 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { DbService } from './services/db.service';
-import { MockDbService } from './services/mock-db.service';
+import { BackendService } from './services/backend.service';
+import { MockBackendService } from './services/mockBackend.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
@@ -31,7 +31,7 @@ export const routes: Routes = [
     BrowserAnimationsModule
   ],
   providers:  [
-                { provide: DbService, useClass: MockDbService }, // TODO: Change to the real service when ready
+                { provide: BackendService, useClass: MockBackendService }, // TODO: Change to the real service when ready
               ],
   bootstrap:  [AppComponent]
 })

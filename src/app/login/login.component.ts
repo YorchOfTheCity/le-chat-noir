@@ -1,9 +1,10 @@
 declare var Vivus: any;
 import 'jquery';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-login',
@@ -26,14 +27,14 @@ import { Router } from '@angular/router';
   ],
 })
 
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit, AfterContentInit {
 
   formModel: FormGroup;
   submitted = false;
   state = 'inactive';
   centeringAnimation = 'framedAbove';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private db: BackendService) {
     this.formModel = new FormGroup({
       'username': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required])
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.submitted = true;
     // TODO: If the form is valid, check for username/pwd and fwd to main chat screen
+
     this.router.navigate(['/main']);
   }
 
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     const useless: any = new Vivus('title-svg', { duration: 200 }, this.fillSVG);
   }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this.state = 'active';
     this.centeringAnimation = 'framedAnim';
   }
