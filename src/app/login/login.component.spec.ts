@@ -78,11 +78,17 @@ describe('LoginComponent', () => {
     expect(pwdInput.valid).toBeTruthy();
   }));
 
-  xit('should reject a wrong user/pwd combination', fakeAsync(() => {
-    console.log('TODO');
+  xit('should get to the chat page when users/pwd are correct', fakeAsync(() => {
+    comp.formModel.controls['username'].setValue('yorch');
+    comp.formModel.controls['password'].setValue('qwertyuiop');
+    comp.onSubmit();
+    expect(comp.incorrectCredentials).toBeFalsy();
   }));
 
-  xit('should get to the chat page when users/pwd are correct', fakeAsync(() => {
-    console.log('TODO');
+  xit('should reject a wrong user/pwd combination', fakeAsync(() => {
+    comp.formModel.controls['username'].setValue('yorchxxxc');
+    comp.formModel.controls['password'].setValue('qwertyuiop');
+    comp.onSubmit();
+    expect(comp.incorrectCredentials).toBeTruthy();
   }));
 });

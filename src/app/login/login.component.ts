@@ -1,10 +1,11 @@
 declare var Vivus: any;
 import 'jquery';
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
 import { BackendService } from '../services/backend.service';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +13,10 @@ import { BackendService } from '../services/backend.service';
   styleUrls: ['./login.component.scss'],
   animations: [
     trigger('splashScreen', [
-      state('inactive' , style({ opacity: 0, transform: 'translateX(-100%)' })),
+      state('inactive', style({ opacity: 0, transform: 'translateX(-100%)' })),
       state('active', style({ opacity: 1, transform: 'translateX(0)' })),
       transition('inactive<=>active', animate('1000ms ease-out'))
-    ]),
-    // trigger('loginWindow', [
-    //   /* Hardcoded the translation since it has problems with the CSS class (.centered),
-    //    * a better option would be to use pure CSS and just change the class with ngClass
-    //    * */
-    //   state('inactive' , style({ transform: 'translate(-50%, -150%)' })),
-    //   state('active', style({ transform: 'translate(-50%, -50%)' })),
-    //   transition('inactive<=>active', animate('1000ms ease-out'))
-    // ]),
+    ])
   ],
 })
 
@@ -31,21 +24,41 @@ export class LoginComponent implements OnInit, AfterContentInit {
 
   formModel: FormGroup;
   submitted = false;
-  state = 'inactive';
+  incorrectCredentials = false;
+  state = 'inactive'; // For splashScreen animation.
   centeringAnimation = 'framedAbove';
 
-  constructor(private router: Router, private db: BackendService) {
+  constructor(private router: Router, private db: BackendService, private session: SessionService) {
     this.formModel = new FormGroup({
       'username': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required])
-      });
+    });
   }
 
   onSubmit() {
     this.submitted = true;
-    // TODO: If the form is valid, check for username/pwd and fwd to main chat screen
+    if (!this.formModel.valid) {
+      return;
+    }
 
-    this.router.navigate(['/main']);
+    // TODO: Check for username/pwd and fwd to main chat screen
+    this.db.getLoginToken(this.username.value, this.password.value).toPromise()
+      .then(
+      res => {
+
+        // console.log('We got the login token: ' + JSON.stringify(res.json));
+        this.session.initSession(res.json());
+        this.router.navigate(['/main']);
+
+      },
+      (res: Response) => {
+        if (res.status === 401) {
+          console.dir(this);
+          this.incorrectCredentials = true;
+        } else {
+          console.error('Unhandled error in login' + res.toString());
+        }
+      });
   }
 
   ngOnInit(): void {
@@ -73,12 +86,9 @@ export class LoginComponent implements OnInit, AfterContentInit {
     })(transparency);
   }
 
-  toggleMove() {
-    console.log('click');
-    this.state = this.state === 'inactive' ? 'active' : 'inactive';
-  }
+
 
   // Getters for easier validator syntax in template:
-  get username() {return this.formModel.get('username'); }
-  get password() {return this.formModel.get('password'); }
+  get username() { return this.formModel.get('username'); }
+  get password() { return this.formModel.get('password'); }
 }
