@@ -12,18 +12,29 @@ export class BackendService {
   constructor(private http: Http, @Inject(BACKEND_URL) private backEndURL: string) {
   }
 
-  getByUsername(username: string): Observable<User> {
-    return Observable.from(getUsers()).filter(u => u.username === username).defaultIfEmpty().delay(1000);
+  isUsernameAvailable(username: string): Observable<any> {
+    const url = this.backEndURL + '/api/v1/userAvailable';
+    const options: RequestOptionsArgs = {params: {username}};
+    return this.http.get(url, options);
   }
 
-  getByEmail(email: string): Observable<User> {
-    return Observable.from(getUsers()).filter(u => u.email === email).defaultIfEmpty().delay(1000);
+  isEmailAvailable(email: string): Observable<any> {
+    const url = this.backEndURL + '/api/v1/emailAvailable';
+    const options: RequestOptionsArgs = {params: {email}};
+    return this.http.get(url, options);
   }
 
   getLoginToken(username: string, password: string) {
-    const loginUrl = this.backEndURL + '/login';
+    const loginUrl = this.backEndURL + '/api/v1/login';
     const options: RequestOptionsArgs = {params: {username, password}};
     return this.http.get(loginUrl, options);
+  }
+
+  saveUser(username: string, email: string, password: string) {
+    const url = this.backEndURL + '/api/v1/user';
+    // const options: RequestOptionsArgs = {params: {username, email, password}};
+    const body = {username, email, password};
+    return this.http.post(url, body);
   }
 }
 

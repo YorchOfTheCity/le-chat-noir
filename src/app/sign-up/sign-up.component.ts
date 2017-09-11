@@ -3,9 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, Valid
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { BackendService } from '../services/backend.service';
 
-let dbService: BackendService;
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,9 +17,9 @@ export class SignUpComponent {
 
   formModel: FormGroup;
   submitted = false;
+  success = false;
 
-  constructor(fb: FormBuilder, private databaseService: BackendService) {
-    dbService = databaseService;
+  constructor(fb: FormBuilder, private db: BackendService) {
     this.formModel = fb.group({
       'username': ['', [Validators.required, Validators.minLength(this.usernameMinLength)], this.userNotInDB],
       'email': ['', [Validators.required, Validators.email], this.emailNotInDB],
@@ -40,7 +39,29 @@ export class SignUpComponent {
 
   onSubmit() {
     this.submitted = true;
-    // TODO: Store the users data.
+    if (this.formModel.valid) {
+
+      this.db.saveUser(this.formModel.get('username').value
+                        , this.formModel.get('email').value
+                        , this.formModel.get('passwordsGroup').get('password').value)
+              .toPromise().then(
+                (response) => {
+                  // On fulfilled
+                  if (response.json().success) {
+                    // TODO: Success message and send to login screen or log in and send to dashboard
+                    console.log('success in inserting user');
+                    this.success = true; // for modal messages
+
+                  }
+                },
+                (error) => {
+                  // on reject
+                  // TODO: Error message
+                  console.log('error' + error);
+                  this.success = false;
+                }
+              );
+    }
   }
 
   // Validators
@@ -50,16 +71,22 @@ export class SignUpComponent {
     return result;
   }
 
-  userNotInDB(control: FormControl): Observable<any> {
+  // We use an arrow function, otherwise the validators lose the this reference and the db service.
+  userNotInDB = (control: FormControl): Observable<any> => {
     let username: string = control.value;
     username = username.toLocaleLowerCase();
-    return dbService.getByUsername(username).map(user => user ? ({ userTaken : true }) : null );
+    return this.db.isUsernameAvailable(username).map(
+      res => {
+        return res.json().available ? null : ({ userTaken : true });
+      });
   }
 
-  emailNotInDB(control: FormControl): Observable<any> {
+  emailNotInDB = (control: FormControl): Observable<any> => {
     let email: string = control.value;
     email = email.toLocaleLowerCase();
-    const n = dbService.getByEmail(email).map(user => user ? ({ emailTaken : true }) : null );
-    return n;
+    return this.db.isEmailAvailable(email).map(
+      res => {
+        return res.json().available ? null : ({ emailTaken : true });
+      });
   }
 }

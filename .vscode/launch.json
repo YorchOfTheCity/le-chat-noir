@@ -12,6 +12,15 @@
       "outFiles": [
         "${workspaceRoot}/out/**/*.js"
       ]
+    },
+    {
+      "name": "Attach Chrome",
+      "type": "chrome",
+      "request": "attach",
+      "url": "http://localhost:4200",
+      "port": 9222,
+      "webRoot": "${workspaceRoot}",
+      "sourceMaps": true
     }
   ]
 }

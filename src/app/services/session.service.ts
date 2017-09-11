@@ -16,10 +16,12 @@ export class SessionService {
    *
    * @param response.json from backend login.
    */
-  initSession( {token, expiresMillis, user}: {token: string, expiresMillis: number, user: User}) {
+  initSession( json: {token: string, expiresMillis: number, user: User} ) {
+    const {token, expiresMillis, user} = json;
     this.loggedIn = true;
     this.token = token;
     this.expires = new Date(expiresMillis);
     this.user = user;
+    sessionStorage.setItem('token', JSON.stringify(json));
   }
 }
