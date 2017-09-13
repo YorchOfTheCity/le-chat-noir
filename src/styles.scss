@@ -76,7 +76,6 @@ h1 {
 }
 
 .framed {
-  @extend .centered;
   @extend .round-corners;
   height: 90%;
   width: 90%;

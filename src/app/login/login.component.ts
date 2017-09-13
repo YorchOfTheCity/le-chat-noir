@@ -1,5 +1,4 @@
 declare var Vivus: any;
-import 'jquery';
 import { Component, OnInit, AfterContentInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -41,7 +40,6 @@ export class LoginComponent implements OnInit, AfterContentInit {
       return;
     }
 
-    // TODO: Check for username/pwd and fwd to main chat screen
     this.db.getLoginToken(this.username.value, this.password.value).toPromise()
       .then(
       res => {

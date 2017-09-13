@@ -22,6 +22,6 @@ export class SessionService {
     this.token = token;
     this.expires = new Date(expiresMillis);
     this.user = user;
-    sessionStorage.setItem('token', JSON.stringify(json));
+    localStorage.setItem('token', JSON.stringify(json));
   }
 }

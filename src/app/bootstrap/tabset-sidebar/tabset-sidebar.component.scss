@@ -1,0 +1,8 @@
+@import "../../../styles.scss";
+
+ngb-tabset {
+  @extend .centered;
+  height: 90%;
+  width: 90%;
+  font-size: .7em
+}

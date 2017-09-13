@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 
 import { BackendService } from '../services/backend.service';
+import { ModalComponent } from '../bootstrap/modal/modal.component';
+import { Router } from '@angular/router';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +22,10 @@ export class SignUpComponent {
   submitted = false;
   success = false;
 
-  constructor(fb: FormBuilder, private db: BackendService) {
+  @ViewChild('modal')
+  modal: ModalComponent;
+
+  constructor(private router: Router, fb: FormBuilder, private db: BackendService, private session: SessionService) {
     this.formModel = fb.group({
       'username': ['', [Validators.required, Validators.minLength(this.usernameMinLength)], this.userNotInDB],
       'email': ['', [Validators.required, Validators.email], this.emailNotInDB],
@@ -39,28 +45,32 @@ export class SignUpComponent {
 
   onSubmit() {
     this.submitted = true;
+
     if (this.formModel.valid) {
 
       this.db.saveUser(this.formModel.get('username').value
-                        , this.formModel.get('email').value
-                        , this.formModel.get('passwordsGroup').get('password').value)
-              .toPromise().then(
-                (response) => {
-                  // On fulfilled
-                  if (response.json().success) {
-                    // TODO: Success message and send to login screen or log in and send to dashboard
-                    console.log('success in inserting user');
-                    this.success = true; // for modal messages
-
-                  }
-                },
-                (error) => {
-                  // on reject
-                  // TODO: Error message
-                  console.log('error' + error);
-                  this.success = false;
-                }
-              );
+        , this.formModel.get('email').value
+        , this.formModel.get('passwordsGroup').get('password').value)
+        .toPromise().then(
+        (response) => {
+          this.session.initSession(response.json());
+          console.log('success in inserting user');
+          this.success = true; // for modal messages
+          // TODO: Check how to customize the messages on the modal... I18N?
+          this.modal.title = 'Registration successful';
+          this.modal.body = 'Thank you for signing up at the chat noir. Let\'s start chatting';
+          this.modal.buttons = [
+            { message: 'Let\'s chat', onclick: () => this.router.navigate(['/main']) }
+          ];
+          this.modal.open();
+        },
+        (error) => {
+          // on reject
+          // TODO: Error message
+          console.log('error' + error);
+          this.success = false;
+        }
+        );
     }
   }
 
@@ -77,7 +87,7 @@ export class SignUpComponent {
     username = username.toLocaleLowerCase();
     return this.db.isUsernameAvailable(username).map(
       res => {
-        return res.json().available ? null : ({ userTaken : true });
+        return res.json().available ? null : ({ userTaken: true });
       });
   }
 
@@ -86,7 +96,7 @@ export class SignUpComponent {
     email = email.toLocaleLowerCase();
     return this.db.isEmailAvailable(email).map(
       res => {
-        return res.json().available ? null : ({ emailTaken : true });
+        return res.json().available ? null : ({ emailTaken: true });
       });
   }
 }

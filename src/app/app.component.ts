@@ -1,7 +1,8 @@
 declare var Vivus: any;
-import 'jquery';
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
-    $('.spinner').remove();
+    // Plain JS as the spinner was loaded outside of the angular app.
+    document.getElementsByClassName('spinner')[0].outerHTML = '';
+
+    // Check if there's a token in appStorage and login automatically
+    if (localStorage.token) {
+      this.router.navigate(['/main']);
+    }
   }
 }
