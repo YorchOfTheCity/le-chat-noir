@@ -94,3 +94,11 @@ h1 {
 .visible {
   visibility: visible;
 }
+
+ngb-tabset {
+  @extend .centered;
+  height: 90%;
+  width: 90%;
+  font-size: .7em;
+  border-radius: 1vw !important;
+}

@@ -48,3 +48,19 @@ $link-color:            $brand-primary !default;
 $link-hover-color:      darken($link-color, 15%) !default;
 //** Link hover decoration.
 $link-hover-decoration: underline !default;
+
+//** Nav tabs for tabset components
+$nav-tabs-border-color: $gray-lighter;
+$nav-tabs-link-active-border-color: $gray-lighter;
+
+//** Custom sizes for height and width
+$sizes: (
+  10: 10%,
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  80: 80%,
+  85: 85%,
+  90: 90%,
+  100: 100%
+);

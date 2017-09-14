@@ -1,0 +1,61 @@
+@import "../../sass/lavishScheme";
+
+.contactsContainer, .addContact {
+  border: solid;
+  border-width: .1em;
+  border-color: $gray-base;
+  border-radius: 1vw;
+
+  background-color: rgba(255,255,255,.7);
+  
+}
+
+.contactsContainer {
+  overflow: auto;
+}
+
+.action-icon {
+  color: $brand-success;
+}
+
+.addContact input {
+  border-radius: 1vw;
+}
+
+button {
+  border-radius: 1vw;
+}
+
+.contactsList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.contactsList li{
+  list-style-type: none;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: $gray-base;
+}
+
+.contactsList :first-child{
+  border-top-style: none;
+}
+
+// @media (min-height: 330px) {
+//   .contactsContainer{
+//     height: 200px;
+//   }
+// }
+
+@media (min-height: 300px) {
+  .contactsContainer{
+    height: 40vh;
+  }
+}
+
+@media (min-height: 450px) {
+  .contactsContainer{
+    height: 60vh;
+  }
+}

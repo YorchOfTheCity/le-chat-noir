@@ -1,0 +1,23 @@
+@import "../../sass/lavishScheme";
+
+.chat-window, .input-window {
+  border: solid;
+  border-width: .1em;
+  border-color: $gray-base;
+  border-radius: 1vw;
+
+  background-color: rgba(255,255,255,.7);
+  overflow: auto;
+}
+
+@media (min-height: 300px) {
+  .chat-window{
+    height: 40vh;
+  }
+}
+
+@media (min-height: 450px) {
+  .chat-window{
+    height: 60vh;
+  }
+}

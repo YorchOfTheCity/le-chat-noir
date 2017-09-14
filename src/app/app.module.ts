@@ -20,6 +20,8 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { TabsetSidebarComponent } from './bootstrap/tabset-sidebar/tabset-sidebar.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { SettingsComponent } from './settings/settings.component';
+import { TabsetChatComponent } from './bootstrap/tabset-chat/tabset-chat.component';
+import { ChatComponent } from './chat/chat.component';
 
 export const routes: Routes = [
   { path: '',         component: LoginComponent },
@@ -38,7 +40,9 @@ export const routes: Routes = [
     ModalComponent,
     TabsetSidebarComponent,
     ContactsComponent,
-    SettingsComponent
+    SettingsComponent,
+    TabsetChatComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

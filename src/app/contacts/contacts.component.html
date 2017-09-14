@@ -1,3 +1,14 @@
-<p>
-  contacts works!
-</p>
+<div class="d-flex flex-column h-100">
+    <div class="m-2 p-1 addContact d-flex justify-content-around">
+      <span>
+        <i class="fa fa-plus-circle action-icon" aria-hidden="true"></i>
+        <input #contactInput type="text" (keyup.enter)="addContact(contactInput.value)" name="contact" placeholder="Add a new contact">
+      </span>
+      <button (click)="addContact(contactInput.value)">Add</button>
+    </div>
+    <div class="m-2 p-1 contactsContainer">
+      <ul class="contactsList">
+        <li *ngFor="let contact of contacts" class="py-1" (click)="openChat(contact)"><span class="pl-2">{{contact.name}}</span></li>
+      </ul>
+    </div>
+</div>
