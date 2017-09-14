@@ -1,7 +1,9 @@
 @import "./sass/lavishScheme";
 @import "~bootstrap/scss/bootstrap";
+@import "~font-awesome/css/font-awesome.min.css";
 @import "./sass/responsiveVars.scss";
-@import "./sass/noise.scss";
+@import "./sass/initSpinner.scss";
+@import "./sass/formSpinner.scss";
 
 @font-face {
   font-family: 'Annie Use Your Telescope';
@@ -22,32 +24,18 @@ body{
 }
 
 h1, h2, h3 {
-  font-family: $title-font;
+  font-family: $title-font !important;
+  text-align: center;
 }
 
 h1 {
   text-transform: uppercase;
   color: $gray;
   line-height: 0.9em;
-}
 
-h1::first-letter {
-  font-size: 2.3em;
-  color: $gray-base;
-  letter-spacing: -.1em;
-}
-
-.main-title {
-  font-family: $title-font;
-  text-transform: uppercase;
-  fill: $gray;
-  line-height: 0.9em;
-  font-size: 3em;
-
-  .first-letter {
-    //::first-letter won't work with SVG, we'll add a class and more tspans for the title.
+  ::first-letter {
     font-size: 2.3em;
-    fill: $gray-base;
+    color: $gray-base;
     letter-spacing: -.1em;
   }
 }
@@ -70,12 +58,8 @@ h1::first-letter {
 }
 
 .semitransparent {
-  background: linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6));
+  background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8));
 }
-
-// .semitransparent-strong {
-//   background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,.8));
-// }
 
 .centered {
   //Needs a relative parent container
@@ -87,18 +71,34 @@ h1::first-letter {
 
 .round-corners {
   border: solid;
-  border-radius: 5%;
+  border-radius: 3vw;
   border-color: rgba(0,0,0,0);
 }
 
 .framed {
-  @extend .centered;
   @extend .round-corners;
   height: 90%;
   width: 90%;
 }
 
-#title-div {
-  width: 50%;
-  overflow: hidden;
+.error {
+  color: $brand-danger;
+  font-size: .5em;
+  font-weight: bolder;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+ngb-tabset {
+  @extend .centered;
+  height: 90%;
+  width: 90%;
+  font-size: .7em;
+  border-radius: 1vw !important;
 }

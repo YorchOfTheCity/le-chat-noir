@@ -1,0 +1,86 @@
+/* Animation taken from https://tympanus.net/codrops/2012/11/14/creative-css-loading-animations/ */
+
+.spinner {
+    font-size: 100px;
+    width: 1em;
+    height: 1em;
+    margin: auto;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+
+    /* Styles */
+    list-style: none;
+    border-radius: 50%;
+    border: .01em solid rgba(150,150,150,0.1); /* Subtle white line circling the dots */
+}
+
+.spinner li {
+	width: .2em;
+    height: .2em;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.spinner li:nth-child(1) {
+	background: $brand-success;
+    top: 0;
+    left: 50%;
+    margin-left: -.1em; /* Width/2 */
+    transform-origin: 50% 250%;
+    animation: 
+        rota 1.13s linear infinite,
+        opa 3.67s ease-in-out infinite alternate;
+}
+
+.spinner li:nth-child(2) {
+    background: $brand-danger;
+    top: 50%; 
+    right: 0;
+    margin-top: -.1em; /* Height/2 */
+    transform-origin: -150% 50%;
+    animation: 
+        rota 1.86s linear infinite,
+        opa 4.29s ease-in-out infinite alternate;
+}
+
+.spinner li:nth-child(3) {
+    background: $brand-warning;
+    bottom: 0;
+    left: 50%; 
+    margin-left: -.1em; /* Width/2 */
+    transform-origin: 50% -150%;
+    animation: 
+        rota 1.45s linear infinite,
+        opa 5.12s ease-in-out infinite alternate;
+}
+
+.spinner li:nth-child(4) {
+    background: $brand-info;
+    top: 50%; 
+    left: 0;
+    margin-top: -.1em; /* Height/2 */
+    transform-origin: 250% 50%;
+    animation: 
+        rota 1.72s linear infinite,
+        opa 5.25s ease-in-out infinite alternate;
+}
+
+@keyframes rota {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes opa {
+  12.0% { opacity: 0.90; }
+  19.5% { opacity: 0.98; }
+  37.2% { opacity: 0.74; }
+  40.5% { opacity: 0.62; }
+  52.7% { opacity: 0.79; }
+  60.2% { opacity: 0.70; }
+  66.6% { opacity: 0.62; }
+  70.0% { opacity: 0.73; }
+  79.9% { opacity: 0.70; }
+  84.2% { opacity: 0.85; }
+  91.0% { opacity: 0.97; }
+}

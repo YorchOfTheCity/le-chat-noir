@@ -1,0 +1,32 @@
+@import "~bootstrap/scss/bootstrap";
+@import "../../sass/lavishScheme.scss";
+@import "../../styles.scss";
+
+form {
+  width: 50%;
+  margin: 1.5em auto;
+}
+
+form span input {
+  width: 100%;
+}
+
+.input-ok {
+  position: absolute;
+  left: -1.1em;
+  top: .3em;
+  color: $brand-success;
+}
+
+/* Classes needed for spinner (async validator) */
+form span {
+  position: relative;
+}
+
+.formPending {
+  @extend .formSpinner;
+  position: absolute;
+  left: -4em;
+  top: 4em;
+}
+/* END OF Classes needed for spinner (async validator) */
