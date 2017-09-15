@@ -102,3 +102,20 @@ ngb-tabset {
   font-size: .7em;
   border-radius: 1vw !important;
 }
+
+
+/** Classes to handle the flow of the tab panels and the content*/
+.tab-content {
+  height: 90%;
+}
+
+.tab-pane.active {
+  height: 100%;
+}
+
+ul.nav.nav-tabs {
+  flex-basis: auto;
+}
+
+
+/** END OF Classes to handle the flow of the tab panels and the content*/

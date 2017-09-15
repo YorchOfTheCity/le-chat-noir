@@ -5,6 +5,7 @@ import { BackendService } from '../services/backend.service';
 interface Contact {
   name: string;
   email: string;
+  selected?: boolean;
 }
 
 @Component({
@@ -30,14 +31,32 @@ export class ContactsComponent implements OnInit {
     console.log(`contact input is ${contact}`);
   }
 
-  openChat(contact: Contact) {
-    // TODO: Implement this... check if the chat is already open and just focus it.
-    console.log(`Open chat for user ${contact.name}`);
+  openChat() {
+    // TODO: Open a chat window for group chat with all the users selected.
   }
+
+  addToChat() {
+    // TODO: Add selected users to chat
+  }
+
+
+  select(contact: Contact, event: MouseEvent) {
+    // TODO: check if ctrl click to select multiple users... toggle selected on the element if ctrl
+    // toggle selected and remove all selected if not ctrl.
+    console.log(`clicked on user ${contact.name}`);
+    if (!event.ctrlKey) {
+      // Clear all selections if the user is not pressing ctrl
+      this.contacts.map( (c: Contact) => c.selected = false);
+    }
+    contact.selected = !contact.selected;
+
+  }
+
 }
 
 function setDummyData() {
-  this.contacts = [
+  let contacts: Contact[];
+  contacts = [
     {name: 'angie', email: 'elangie@tekmexico.com'},
     {name: 'contact1', email: 'contact1@tekmexico.com'},
     {name: 'contact2', email: 'contact2@tekmexico.com'},
@@ -45,5 +64,11 @@ function setDummyData() {
     {name: 'contact4', email: 'contact4@tekmexico.com'},
     {name: 'contact5', email: 'contact5@tekmexico.com'},
     {name: 'contact6', email: 'contact6@tekmexico.com'},
+    {name: 'contact7', email: 'contact7@tekmexico.com'},
+    {name: 'contact8', email: 'contact8@tekmexico.com'},
+    {name: 'contact9', email: 'contact9@tekmexico.com'},
+    {name: 'contact10', email: 'contact10@tekmexico.com'},
   ];
+
+  this.contacts = contacts;
 }

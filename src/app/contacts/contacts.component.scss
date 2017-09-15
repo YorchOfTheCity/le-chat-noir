@@ -10,6 +10,14 @@
   
 }
 
+.addContact, .beginChat {
+  flex-basis: auto;
+}
+
+// .contactsContainer {
+//   flex-basis: 50%;
+// }
+
 .contactsContainer {
   overflow: auto;
 }
@@ -29,6 +37,7 @@ button {
 .contactsList {
   list-style-type: none;
   padding: 0;
+  margin-bottom: 0;
 }
 
 .contactsList li{
@@ -42,20 +51,24 @@ button {
   border-top-style: none;
 }
 
+li.selected {
+  background-color: rgba($gray, .4);
+}
+
 // @media (min-height: 330px) {
 //   .contactsContainer{
 //     height: 200px;
 //   }
 // }
 
-@media (min-height: 300px) {
-  .contactsContainer{
-    height: 40vh;
-  }
-}
+// @media (min-height: 300px) {
+//   .contactsContainer{
+//     height: 40vh;
+//   }
+// }
 
-@media (min-height: 450px) {
-  .contactsContainer{
-    height: 60vh;
-  }
-}
+// @media (min-height: 450px) {
+//   .contactsContainer{
+//     height: 60vh;
+//   }
+// }
