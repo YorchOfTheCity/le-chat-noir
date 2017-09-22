@@ -1,3 +1,22 @@
+@import "../../styles.scss";
+
 .fullheight {
   height: 100vh;
 }
+
+.userBar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgba(0,0,0,.7);
+  color: $gray-lighter;
+  z-index: 1;
+  border-bottom-left-radius: .5em;
+}
+
+.userBar i {
+  position: absolute;
+  right: 1em;
+  top: .3em;
+}
+

@@ -5,6 +5,7 @@ import { User } from './backend.service';
 
 @Injectable()
 export class SessionService {
+  body: {};
   loggedIn: boolean;
   token: string;
   expires: Date;
@@ -18,6 +19,7 @@ export class SessionService {
    */
   initSession( json: {token: string, expiresMillis: number, user: User} ) {
     const {token, expiresMillis, user} = json;
+    this.body = json;
     this.loggedIn = true;
     this.token = token;
     this.expires = new Date(expiresMillis);

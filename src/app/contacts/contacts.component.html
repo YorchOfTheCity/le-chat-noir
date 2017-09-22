@@ -2,13 +2,21 @@
     <div class="m-2 p-1 addContact d-flex justify-content-around">
       <span>
         <i class="fa fa-plus-circle action-icon" aria-hidden="true"></i>
-        <input #contactInput type="text" (keyup.enter)="addContact(contactInput.value)" name="contact" placeholder="Add a new contact">
+        <input #contactInput type="text" (keyup.enter)="inviteContact(contactInput.value)" name="contact" placeholder="Add a new contact">
       </span>
-      <button (click)="addContact(contactInput.value)">Add</button>
+      <button (click)="inviteContact(contactInput.value)">Add</button>
     </div>
     <div class="m-2 p-1 contactsContainer">
       <ul class="contactsList">
-        <li *ngFor="let contact of contacts" [class.selected]="contact.selected" class="py-1" (click)="select(contact, $event)"><span class="pl-2">{{contact.name}}</span></li>
+        <li *ngFor="let contact of contacts" [class.selected]="contact.isSelected" class="py-1" (click)="select(contact, $event)">
+          <span class="pl-2">
+            <i *ngIf="contact.isInvitePending" class="fa fa-envelope" aria-hidden="true"></i>
+            <i *ngIf="contact.isInviteAccepted" (dblclick)="acknowledgeInviteResult(contact)" class="fa fa-envelope accepted blink" aria-hidden="true"></i>
+            <i *ngIf="contact.isInviteRejected" (dblclick)="acknowledgeInviteResult(contact)" class="fa fa-envelope rejected blink" aria-hidden="true"></i>
+            <i *ngIf="!(contact.isInvitePending || contact.isInviteRejected || contact.isInviteAccepted)" class="fa fa-square" [class.isOnline]="contact.isOnline" aria-hidden="true"></i>
+            {{contact.name}}
+          </span>
+        </li>
       </ul>
     </div>
     <div class="m-2 p-1 beginChat d-flex justify-content-around">
@@ -16,3 +24,5 @@
         <button (click)="addToChat()">Add to chat</button>
       </div>
 </div>
+
+<app-b-modal #modal> </app-b-modal>

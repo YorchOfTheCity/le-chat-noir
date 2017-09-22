@@ -3,6 +3,7 @@ declare var Vivus: any;
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private session: SessionService) {}
 
   ngOnInit(): void {
     // Plain JS as the spinner was loaded outside of the angular app.
@@ -19,6 +20,8 @@ export class AppComponent implements OnInit {
 
     // Check if there's a token in appStorage and login automatically
     if (localStorage.token) {
+      // TODO: Cancel if it's expired
+      this.session.initSession(JSON.parse(localStorage.token));
       this.router.navigate(['/main']);
     }
   }

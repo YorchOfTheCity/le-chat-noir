@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../services/session.service';
+import { User } from '../services/backend.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+
+  constructor(private session: SessionService) {
+    this.user = session.user;
+  }
 
   ngOnInit() {
+    this.user = this.session.user;
   }
 
 }

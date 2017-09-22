@@ -13,7 +13,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { BackendService } from './services/backend.service';
 import { MockBackendService } from './services/mockBackend.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BACKEND_URL } from './tokens';
+import { BACKEND_URL, BACKEND_URL_SOCKETS } from './tokens';
 import { SessionService } from './services/session.service';
 import { ModalComponent } from './bootstrap/modal/modal.component';
 import { AuthGuardService } from './services/auth-guard.service';
@@ -22,6 +22,8 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TabsetChatComponent } from './bootstrap/tabset-chat/tabset-chat.component';
 import { ChatComponent } from './chat/chat.component';
+import { SocketService } from './services/socket.service';
+import { ModalContactsComponent } from './bootstrap/modal-contacts/modal-contacts.component';
 
 export const routes: Routes = [
   { path: '',         component: LoginComponent },
@@ -42,7 +44,8 @@ export const routes: Routes = [
     ContactsComponent,
     SettingsComponent,
     TabsetChatComponent,
-    ChatComponent
+    ChatComponent,
+    ModalContactsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,9 @@ export const routes: Routes = [
                 BackendService,
                 SessionService,
                 AuthGuardService,
-                { provide: BACKEND_URL, useValue: 'http://localhost:3000' },
+                SocketService,
+                { provide: BACKEND_URL_SOCKETS, useValue: 'http://localhost:3000' },
+                { provide: BACKEND_URL, useValue: '' }, // We'll use relative urls with a proxy to the backend.
               ],
   bootstrap:  [AppComponent]
 })
