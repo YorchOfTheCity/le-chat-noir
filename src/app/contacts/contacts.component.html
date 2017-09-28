@@ -20,9 +20,11 @@
       </ul>
     </div>
     <div class="m-2 p-1 beginChat d-flex justify-content-around">
+        <button *ngIf="pendingInvites" (click)="modalInvites.open()"><i class="fa fa-envelope accepted blink px-1"></i></button>
         <button (click)="openChat()">New Chat</button>
         <button (click)="addToChat()">Add to chat</button>
       </div>
 </div>
 
 <app-b-modal #modal> </app-b-modal>
+<app-modal-invites #modalInvites [contacts]="contacts" [(pendingInvites)]="pendingInvites"> </app-modal-invites>

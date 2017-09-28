@@ -5,8 +5,9 @@ import { ModalComponent } from '../bootstrap/modal/modal.component';
 import * as io from 'socket.io-client';
 import { BACKEND_URL_SOCKETS } from '../tokens';
 import { SocketService } from '../services/socket.service';
+import { ChatsManagementService } from '../services/chats-management.service';
 
-interface Contact {
+export interface Contact {
   name: string;
   isSelected?: boolean;
   isOnline?: boolean;
@@ -23,11 +24,13 @@ interface Contact {
 export class ContactsComponent implements OnInit {
   // TODO: Listen for users that connect, add icon for online/offline status, move online users to the top
   contacts: Contact[];
+  pendingInvites = false;
 
   @ViewChild('modal')
   modal: ModalComponent;
 
-  constructor(private db: BackendService, private session: SessionService, private socketService: SocketService) {
+  constructor(private db: BackendService, private session: SessionService, private socketService: SocketService,
+    private chatService: ChatsManagementService) {
     // setDummyData.call(this);
     this.initSocketObservers();
   }
@@ -41,17 +44,23 @@ export class ContactsComponent implements OnInit {
       this.contacts = contactsResponse.json();
       // TODO: Add invites to contacts
       const invites = invitesResponse.json();
-      console.log('debug line');
       invites.forEach(invite => {
         const contact: Contact = { name: invite.contact };
         if (invite.accept === undefined) {
           contact.isInvitePending = true;
+          this.contacts.push( contact );
         }else if (invite.accept) {
-          contact.isInviteAccepted = true;
+          // TODO: If invite accepted while offline (this case) then there's already a contact with that name
+          // need to change its isInviteAccepted and don't push another one.
+          for (let i = 0; i <= this.contacts.length; i++) {
+            if (this.contacts[i].name === contact.name) {
+              this.contacts[i].isInviteAccepted = true;
+            }
+          }
         }else {
           contact.isInviteRejected = true;
+          this.contacts.push( contact );
         }
-        this.contacts.push( contact );
       });
     },
     (err) => {
@@ -89,11 +98,35 @@ export class ContactsComponent implements OnInit {
   }
 
   openChat() {
-    // TODO: Open a chat window for group chat with all the users selected.
+    if (this.contacts.filter( contact => contact.isSelected && !contact.isOnline).length > 0 ) {
+      // Don't trigger chat if offline users were selected
+      this.modal.title = 'Can\'t open chat';
+      this.modal.body = 'You can only start chats with online users, please only select online users';
+      this.modal.buttons = [];
+      this.modal.open();
+      return;
+    }
+    // Trigger an event so that the tabsetchat creates a new chat
+    this.chatService.createChatSubject.next(
+      this.contacts.filter(contact => contact.isSelected)
+      .map(contact => contact.name)
+    );
   }
 
   addToChat() {
-    // TODO: Add selected users to chat
+    if (this.contacts.filter( contact => contact.isSelected && !contact.isOnline).length > 0 ) {
+      // Don't trigger chat if offline users were selected
+      this.modal.title = 'Can\'t add to chat';
+      this.modal.body = 'You can only add online users to an ongoing chat, please only select online users';
+      this.modal.buttons = [];
+      this.modal.open();
+      return;
+    }
+    // Trigger an event so that the current chat window adds the users
+    this.chatService.addToChatSubject.next(
+      this.contacts.filter(contact => contact.isSelected)
+      .map(contact => contact.name)
+    );
   }
 
 
@@ -162,11 +195,21 @@ export class ContactsComponent implements OnInit {
       this.contacts.forEach(element => {
         if (element.name === contactName) {
           element.isInvitePending = false;
-          // element.isOnline // What to do?
+          element.isInviteAccepted = true;
+          // element.isOnline // What to do? (trigger emit when sending ACK)
         }
       });
     });
 
+    this.socketService.inviteRejected.subscribe( ( contactName ) => {
+      this.contacts.forEach(element => {
+        if (element.name === contactName) {
+          element.isInvitePending = false;
+          element.isInviteRejected = true;
+          // element.isOnline // What to do? (trigger emit when sending ACK)
+        }
+      });
+    });
   }
 }
 

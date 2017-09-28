@@ -1,0 +1,17 @@
+@import "../../../sass/lavishScheme";
+
+.inviteRow div {
+    flex-basis: 50%;
+}
+
+.inviteRow div:not(:first-child) {
+    flex-basis: auto;
+}
+
+.fa-check {
+    color: $brand-success;
+}
+
+.fa-ban {
+    color: $brand-danger;
+}

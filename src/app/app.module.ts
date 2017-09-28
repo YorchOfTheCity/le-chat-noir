@@ -23,7 +23,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { TabsetChatComponent } from './bootstrap/tabset-chat/tabset-chat.component';
 import { ChatComponent } from './chat/chat.component';
 import { SocketService } from './services/socket.service';
-import { ModalContactsComponent } from './bootstrap/modal-contacts/modal-contacts.component';
+import { ModalInvitesComponent } from './bootstrap/modal-invites/modal-invites.component';
 
 export const routes: Routes = [
   { path: '',         component: LoginComponent },
@@ -45,7 +45,7 @@ export const routes: Routes = [
     SettingsComponent,
     TabsetChatComponent,
     ChatComponent,
-    ModalContactsComponent
+    ModalInvitesComponent
   ],
   imports: [
     BrowserModule,

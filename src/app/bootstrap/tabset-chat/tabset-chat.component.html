@@ -1,15 +1,14 @@
 <ngb-tabset class="semitransparent framed centered">
-  <ngb-tab title="Chat 1">
+  <ngb-tab *ngIf="(chatRooms.length===0)" title="Chats">
     <ng-template ngbTabContent>
-      <app-chat></app-chat>
+      <div class="centered">
+        <h3>Your ongoing chats will appear here</h3>
+      </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Chat</b> 2</ng-template>
-    <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-      <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft
-        beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
-        PBR.</p>
+  <ngb-tab *ngFor="let chatRoom of chatRooms" title="{{chatRoom.title}}">
+    <ng-template ngbTabContent>
+      <app-chat [chatRoom]="chatRoom"></app-chat>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

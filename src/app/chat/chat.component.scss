@@ -10,6 +10,19 @@
   overflow: auto;
 }
 
+.inputBox {
+  flex-grow: 1;
+}
+
+.inputBox input {
+  width: 100%;
+  border-radius: 1vw;
+}
+
+.inputButtons {
+  flex-basis: auto;
+}
+
 @media (min-height: 300px) {
   .chat-window{
     height: 40vh;
