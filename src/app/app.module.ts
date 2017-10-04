@@ -24,6 +24,7 @@ import { TabsetChatComponent } from './bootstrap/tabset-chat/tabset-chat.compone
 import { ChatComponent } from './chat/chat.component';
 import { SocketService } from './services/socket.service';
 import { ModalInvitesComponent } from './bootstrap/modal-invites/modal-invites.component';
+import { CanvasComponent } from './canvas/canvas.component';
 
 export const routes: Routes = [
   { path: '',         component: LoginComponent },
@@ -45,7 +46,8 @@ export const routes: Routes = [
     SettingsComponent,
     TabsetChatComponent,
     ChatComponent,
-    ModalInvitesComponent
+    ModalInvitesComponent,
+    CanvasComponent
   ],
   imports: [
     BrowserModule,

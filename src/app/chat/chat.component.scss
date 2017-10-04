@@ -1,4 +1,4 @@
-@import "../../sass/lavishScheme";
+@import "../../styles";
 
 .chat-window, .input-window {
   border: solid;
@@ -8,6 +8,10 @@
 
   background-color: rgba(255,255,255,.7);
   overflow: auto;
+}
+
+.input-window {
+  overflow: visible;
 }
 
 .inputBox {
@@ -21,6 +25,27 @@
 
 .inputButtons {
   flex-basis: auto;
+  position: relative;
+}
+
+.message {
+  min-width: 10%;
+  max-width: 50%;
+  text-align: left;
+  clear: both;
+  border-radius: 1vw;
+}
+
+.incoming {
+  background-color: $brand-primary;
+  float: left;
+  border-bottom-left-radius: 0;
+}
+
+.message:not(.incoming) {
+  float: right;
+  border-bottom-right-radius: 0;
+  background-color: $gray-lighter;
 }
 
 @media (min-height: 300px) {
@@ -33,4 +58,27 @@
   .chat-window{
     height: 60vh;
   }
+}
+
+app-canvas {
+  height: $app-canvas-height;
+  width: $app-canvas-width;
+  background-color: $gray-lighter;
+  position: absolute;
+  top: -$app-canvas-height;
+  left: -$app-canvas-width;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1vh;
+  border-bottom-right-radius: 0;
+
+}
+
+.senderDiv {
+  font-size: .8em;
+  color: $gray-light;
+  border-bottom-style: dashed;
+  border-bottom-color: $gray-darker;
+  border-bottom-width: 1px;
+  text-align: center;
 }

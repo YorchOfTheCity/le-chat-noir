@@ -3,7 +3,7 @@ import { SessionService } from './session.service';
 import { BACKEND_URL_SOCKETS } from '../tokens';
 import { Observable, Subject } from 'rxjs/Rx';
 import { Invite } from '../bootstrap/modal-invites/modal-invites.component';
-import { ChatRoom, Message } from '../chat/chat.component';
+import { ChatRoom, Message } from '../bootstrap/tabset-chat/tabset-chat.component';
 
 // Events object mirrored in backend
 const EVENTS = {
@@ -14,7 +14,8 @@ const EVENTS = {
   // tslint:disable-next-line:max-line-length
   ACK_INVITE_RESULT : 'acknowledgeInviteResult', // For the inviter to acknowledge that his invite was accepted/canceled (and delete invite from db)
   INVITE_RESPONSE: 'inviteResponse', // To accept/reject invite.
-  START_CHAT: 'startChat'
+  START_CHAT: 'startChat',
+  NEW_MESSAGE: 'sendMessage'
 };
 
 @Injectable()
@@ -30,6 +31,8 @@ export class SocketService {
 
   public startChatRequest: Subject<ChatRoom>;
 
+  public messagesSubject: Subject<Message>;
+
   private socket: SocketIOClient.Socket;
 
   constructor(private session: SessionService, @Inject(BACKEND_URL_SOCKETS) private backEndURL: string) {
@@ -39,6 +42,7 @@ export class SocketService {
     this.inviteRejected = new Subject<string>();
     this.inviteRequest = new Subject<Invite>();
     this.startChatRequest = new Subject<ChatRoom>();
+    this.messagesSubject = new Subject<Message>();
 
     this.socket = io(backEndURL);
     this.socket.on('connect', () => {
@@ -71,6 +75,10 @@ export class SocketService {
     this.socket.on(EVENTS.START_CHAT, (chatRoom: ChatRoom) => {
       this.startChatRequest.next(chatRoom);
     });
+
+    this.socket.on(EVENTS.NEW_MESSAGE, (message: Message) => {
+      this.messagesSubject.next(message);
+    });
   }
 
   /**
@@ -93,5 +101,9 @@ export class SocketService {
 
   startChat(chatRoom: ChatRoom) {
     this.socket.emit(EVENTS.START_CHAT, chatRoom);
+  }
+
+  sendMessage(message: Message) {
+    this.socket.emit(EVENTS.NEW_MESSAGE, message);
   }
 }

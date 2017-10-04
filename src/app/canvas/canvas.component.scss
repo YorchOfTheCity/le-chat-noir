@@ -1,0 +1,11 @@
+@import "../../styles";
+
+canvas {
+    // height: 120px; //Should be set as widht and height attrbiutes in canvas, otherwise the coordinate system breaks
+    // width: 160px;
+    background-color: white;
+    border-radius: 1vh;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}

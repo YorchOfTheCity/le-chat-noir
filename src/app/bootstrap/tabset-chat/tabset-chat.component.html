@@ -1,14 +1,14 @@
 <ngb-tabset class="semitransparent framed centered">
-  <ngb-tab *ngIf="(chatRooms.length===0)" title="Chats">
+  <ngb-tab *ngIf="(openChats.length===0)" title="Chats">
     <ng-template ngbTabContent>
       <div class="centered">
         <h3>Your ongoing chats will appear here</h3>
       </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab *ngFor="let chatRoom of chatRooms" title="{{chatRoom.title}}">
+  <ngb-tab *ngFor="let chat of openChats" title="{{chat.chatRoom.title}}">
     <ng-template ngbTabContent>
-      <app-chat [chatRoom]="chatRoom"></app-chat>
+      <app-chat [chatState]="chat"></app-chat>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

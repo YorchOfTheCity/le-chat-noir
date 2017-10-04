@@ -23,6 +23,9 @@ export interface Contact {
 })
 export class ContactsComponent implements OnInit {
   // TODO: Listen for users that connect, add icon for online/offline status, move online users to the top
+  /* TODO: Fu%$$&ing ngbootstrap components destroy and create components when tab changes...
+  we need to keep these states in parent or service */
+
   contacts: Contact[];
   pendingInvites = false;
 

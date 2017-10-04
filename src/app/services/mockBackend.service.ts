@@ -14,7 +14,7 @@ export class MockBackendService {
 
   getByUsername(username: string): Observable<User> {
     tick(1000);
-    return Observable.from(getUsers()).filter(u => u.username === username).defaultIfEmpty();
+    return Observable.from(getUsers()).filter(u => u.name === username).defaultIfEmpty();
   }
 
   getByEmail(email: string): Observable<User> {
@@ -49,7 +49,7 @@ export class MockBackendService {
 }
 
 function getUsers(): User[] {
-  return users.map(p => new User(p.username, p.email));
+  return users.map(p => new User(p.name, p.email));
 }
 
 class MockError extends Response implements Error {
@@ -58,6 +58,6 @@ class MockError extends Response implements Error {
 }
 
 const users = [
-  { username: 'yorch', email: 'yorch@tekmexico.com', pwdHash: 'qwertyuiop' },
-  { username: 'angie', email: 'angie@tekmexico.com', pwdHash: 'qwertyuiop' }
+  { name: 'yorch', email: 'yorch@tekmexico.com', pwdHash: 'qwertyuiop' },
+  { name: 'angie', email: 'angie@tekmexico.com', pwdHash: 'qwertyuiop' }
 ];

@@ -16,7 +16,11 @@
 
 $title-font: 'Annie Use Your Telescope', cursive;
 $text-font: 'Raleway', sans-serif;
-$body-bg: #424441;
+
+// We can place this in media queries (or not, to have all doodles have the same capacity
+$app-canvas-height: 200px;
+$app-canvas-width: 180px;
+
 
 body{
   height: 100%;

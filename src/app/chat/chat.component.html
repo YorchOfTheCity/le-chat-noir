@@ -1,12 +1,20 @@
-<div class="chat-window m-2 p-2">
-  Main chat window
+<div #chatWindow class="chat-window m-2 p-2">
+  <div *ngFor="let message of chatState.messages" 
+    [class.incoming]="message.sender !== sessionService.user.name" class="message p-1 m-1">
+    <div *ngIf="chatState.chatRoom.contacts.length > 1 && message.sender !== sessionService.user.name"  class="senderDiv">
+      {{message.sender}}
+    </div>
+    <span *ngIf="!message.isDoodle">{{message.content}}</span>
+    <img *ngIf="message.isDoodle" src="{{message.content}}" />
+  </div>
 </div>
 <div class="input-window m-2 p-2 d-flex justify-content-around">
   <div class="inputBox pr-2">
-      <input type="text" class="px-1">
+      <input #messageInput type="text" (keyup.enter)="sendMessage(messageInput.value);messageInput.value=''" class="px-1">
   </div>
   <div class="inputButtons">
-      <button type=""><i class="fa fa-paint-brush" aria-hidden="true"></i></button>
-      <button><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+      <button (click)="toggleCanvasComp()"><i class="fa fa-paint-brush" aria-hidden="true"></i></button>
+      <button (click)="sendMessage(messageInput.value);messageInput.value=''"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+      <app-canvas #canvasComp [hidden]="!showCanvas" (scribbleMessage)="sendScribble($event)"></app-canvas>
   </div>
 </div>

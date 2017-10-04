@@ -69,17 +69,7 @@ export class BackendService {
 
 export class User {
   constructor(
-    public username: string,
+    public name: string,
     public email: string
-    ) {
-  }
+    ) { }
 }
-
-function getUsers(): User[] {
-  return users.map(p => new User(p.username, p.email));
-}
-
-const users = [
-  {username: 'yorch', email: 'yorch@tekmexico.com'},
-  {username: 'angie', email: 'angie@tekmexico.com'},
-];
