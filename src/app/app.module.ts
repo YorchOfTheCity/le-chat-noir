@@ -4,8 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
-
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -32,7 +34,9 @@ export const routes: Routes = [
   { path: 'main',     component: DashboardComponent,  canActivate: [AuthGuardService] }
 ];
 
-
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, '/assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -55,14 +59,22 @@ export const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     HttpModule,
-    NgbModule.forRoot()
+    HttpClientModule,
+    NgbModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers:  [
                 BackendService,
                 SessionService,
                 AuthGuardService,
                 SocketService,
-                { provide: BACKEND_URL_SOCKETS, useValue: 'http://localhost:3000' },
+                { provide: BACKEND_URL_SOCKETS, useValue: 'https://localhost:3000' },
                 { provide: BACKEND_URL, useValue: '' }, // We'll use relative urls with a proxy to the backend.
               ],
   bootstrap:  [AppComponent]

@@ -20,18 +20,18 @@
     <div id="loginContainer" class="col-md-4">
       <div id="loginFrame" class="semitransparent" [ngClass]="centeringAnimation">
         <div class="centered">
-          <h2>The chat noir</h2>
+          <h2>Le chat noir</h2>
           <form [formGroup]="formModel" (ngSubmit)="onSubmit()" class="d-flex flex-column">
-            <label for="username" class="mb-0">Username:</label>
-            <span [class.invisible]="!submitted || username.valid" class="error">* Please enter your user name</span>
+            <label for="username" class="mb-0" >{{ 'LOGIN.USERNAME' | translate}}:</label>
+            <span [class.invisible]="!submitted || username.valid" class="error" >* Please enter your user name</span>
             <input type="text" formControlName="username" class="mb-3">
-            <label for="password" class="mb-0">Password:</label>
-            <span [class.invisible]="!submitted || password.valid" class="error">* Please enter your password</span>
+            <label for="password" class="mb-0" >Password:</label>
+            <span [class.invisible]="!submitted || password.valid" class="error" >* Please enter your password</span>
             <input type="password" formControlName="password" class="mb-3">
 
-            <span [class.invisible]="!incorrectCredentials" class="error">* Username/Password Incorrect</span>
-            <button type="submit" class="align-self-end btn btn-primary">Log In</button>
-            <a [routerLink]="['/signUp']" class="mt-3 pt-1">Sign Up</a>
+            <span [class.invisible]="!incorrectCredentials" class="error" >* Username/Password Incorrect</span>
+            <button type="submit" class="align-self-end btn btn-primary" >Log In</button>
+            <a [routerLink]="['/signUp']" class="mt-3 pt-1" >Sign Up</a>
 
           </form>
         </div>

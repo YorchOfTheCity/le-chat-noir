@@ -5,6 +5,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { Router } from '@angular/router';
 import { BackendService } from '../services/backend.service';
 import { SessionService } from '../services/session.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,12 @@ export class LoginComponent implements OnInit, AfterContentInit {
   state = 'inactive'; // For splashScreen animation.
   centeringAnimation = 'framedAbove';
 
-  constructor(private router: Router, private db: BackendService, private session: SessionService) {
+  constructor(private router: Router, private db: BackendService, private session: SessionService, private translate: TranslateService) {
+    translate.addLangs(['en', 'es']);
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/en|es|fr/) ? browserLang : 'en');
+
     this.formModel = new FormGroup({
       'username': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required])

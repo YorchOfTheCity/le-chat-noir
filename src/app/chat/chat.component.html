@@ -5,7 +5,7 @@
       {{message.sender}}
     </div>
     <span *ngIf="!message.isDoodle">{{message.content}}</span>
-    <img *ngIf="message.isDoodle" src="{{message.content}}" />
+    <img *ngIf="message.isDoodle" src="{{message.content}}" (load)="scrollChatToBottom()"/>
   </div>
 </div>
 <div class="input-window m-2 p-2 d-flex justify-content-around">

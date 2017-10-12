@@ -18,22 +18,22 @@ import { BACKEND_URL } from '../tokens';
 
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    SignUpComponent,
-    DashboardComponent,
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterTestingModule.withRoutes(routes),
-    HttpModule
-  ],
-  providers:  [
-    SessionService,
-    BackendService,
-    { provide: BACKEND_URL, useValue: 'http://localhost:3000' },
-    { provide: XHRBackend, useClass: MockBackend },
-  ]
+  // declarations: [
+  //   LoginComponent,
+  //   SignUpComponent,
+  //   DashboardComponent,
+  // ],
+  // imports: [
+  //   CommonModule,
+  //   ReactiveFormsModule,
+  //   RouterTestingModule.withRoutes(routes),
+  //   HttpModule
+  // ],
+  // providers:  [
+  //   SessionService,
+  //   BackendService,
+  //   { provide: BACKEND_URL, useValue: 'http://localhost:3000' },
+  //   { provide: XHRBackend, useClass: MockBackend },
+  // ]
 })
 export class CommonTestModule { }
